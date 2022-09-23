@@ -11,6 +11,8 @@
 #include <analogWrite.h>
 #include <ESP32PWM.h>
 
+#include <esp_wifi.h>
+
 #define IS_DEBUG 1
 #define SEUIL_SUP 3000
 #define SEUIL_INF 2500
@@ -122,8 +124,11 @@ void setup(){
     lcd.noBacklight();
   }
 
-  Serial.println("Going to sleep !");
-  esp_deep_sleep_start();
+  esp_wifi_disconnect(); //Disconnect !! for next wakeup login
+  #if IS_DEBUG
+    Serial.println("Going to sleep !");
+  #endif
+  esp_deep_sleep_start(); // Go Sleep
 }
 void loop(){
 }
